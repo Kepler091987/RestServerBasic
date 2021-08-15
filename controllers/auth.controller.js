@@ -70,7 +70,8 @@ const googleSignIn = async (req = request, res = response) => {
                 msg: 'El usuario esta bloqueado, contacte al administrador'
             });
         }
-        // Generar JWT
+        // Generar JWTexit
+
         const token = await generateJWT(user._id);
         res.json({
             user,
