@@ -25,7 +25,7 @@ const userGet = async (req, res = response) => {
         total,
         users
     })
-}
+};
 
 const userPost = async (req = request, res = response) => {
 
@@ -66,17 +66,18 @@ const userPut = async ( req = request, res = response) => {
     })
 }
 
-const userDelete = async (req, res = response) => {
+const userDelete = async (req = request, res = response) => {
     const id = req.params.id;
-
-    //Fisico delete
-    // const user = await User.findByIdAndDelete(id);
 
     const [user] = await Promise.all([
         User.findByIdAndUpdate(id,{active:false})
     ]);
+
+    const authenticatedUser = req.user;
+
     res.json({
-        user
+        user,
+        authenticatedUser
     })
 }
 
