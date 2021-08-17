@@ -24,7 +24,7 @@ const userGet = async (req, res = response) => {
     res.json({
         total,
         users
-    })
+    });
 };
 
 const userPost = async (req = request, res = response) => {
@@ -57,20 +57,17 @@ const userPut = async ( req = request, res = response) => {
         rest.password = bcryptjs.hashSync(password, salt);
     }
 
-    const [user] = await Promise.all([
-        User.findByIdAndUpdate(id, rest)
-    ]);
-
-    res.json({
+    const user = await User.findByIdAndUpdate(id, rest, {new: true});
+    res.status(201).json({
         user
-    })
+    });
 }
 
 const userDelete = async (req = request, res = response) => {
     const id = req.params.id;
 
     const [user] = await Promise.all([
-        User.findByIdAndUpdate(id,{active:false})
+        User.findByIdAndUpdate(id,{active:false}, {new:true})
     ]);
 
     const authenticatedUser = req.user;

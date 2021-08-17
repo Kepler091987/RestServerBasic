@@ -1,5 +1,6 @@
 const Role = require("../models/role.model");
 const User = require("../models/user.model");
+const { Category, Product } = require("../models");
 
 
 const roleValidate = async (role = '') => {
@@ -23,8 +24,25 @@ const existUserForId = async (id) => {
     }
 }
 
+const existCategoryForId = async (id) => {
+    const existCategory = await Category.findById(id);
+    if(!existCategory){
+        throw new Error(`el id ${id} no representa una categoria en la base de datos`)
+    }
+}
+
+const existProductForId = async (id) => {
+    const existProduct = await Product.findById(id);
+    if(!existProduct){
+        throw new Error(`el id ${id} no representa un producto en la base de datos`)
+    }
+}
+
+
 module.exports = {
     roleValidate,
     existEmail,
-    existUserForId
+    existUserForId,
+    existCategoryForId,
+    existProductForId
 }
