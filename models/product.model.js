@@ -15,6 +15,9 @@ const ProductSchema =  Schema({
         ref: 'User',
         required: [true, 'El usuario es obligatorio']
     },
+    image: {
+        type: String,
+    },
     price: {
         type: Number,
         default: 0
